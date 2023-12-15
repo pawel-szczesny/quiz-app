@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import {Controller, Get} from '@nestjs/common';
 
 @Controller('leaderboard')
-export class LeaderboardController {}
+export class LeaderboardController {
+    @Get()
+    getLeaderboard(): string {
+        return "OK"
+    }
+}

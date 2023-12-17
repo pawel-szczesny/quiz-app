@@ -4,6 +4,8 @@ import {JwtModule} from "@nestjs/jwt";
 import {jwtConstants} from "./constants";
 import {APP_GUARD} from "@nestjs/core";
 import {AuthGuard} from "./authguard";
+import {SequelizeModule} from "@nestjs/sequelize";
+import {User} from "./models/user.model";
 
 @Module({
     imports: [
@@ -12,7 +14,8 @@ import {AuthGuard} from "./authguard";
                 secret: jwtConstants.secret,
                 signOptions: {expiresIn: '12h'}
             }
-        )
+        ),
+        SequelizeModule.forFeature([User])
     ],
     providers: [
         UsersService,

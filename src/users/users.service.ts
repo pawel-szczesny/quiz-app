@@ -1,23 +1,28 @@
 import {Injectable, UnauthorizedException} from '@nestjs/common';
 import {JwtService} from "@nestjs/jwt";
-
-export interface User {
-    userId: string;
-    username: string;
-    password: string;
-    email: string;
-}
+import {User} from "./models/user.model";
+import {InjectModel} from "@nestjs/sequelize";
+import {RegisterUserDto} from "./register-user.dto";
 
 @Injectable()
 export class UsersService {
-    constructor(private jwtService: JwtService) {}
+    constructor(private jwtService: JwtService,
+                @InjectModel(User) private readonly userModel: typeof User) {}
 
-    private readonly users = [
-        {"userId": "asdasdas", "username": "pawel", "password": "password", "email": "email"}
-    ]
+    create(registerUserDto: RegisterUserDto) {
+        return this.userModel.create({
+            username: registerUserDto.username,
+            password: registerUserDto.password,
+            email: registerUserDto.email
+        })
+    }
 
     async findOne(username: string): Promise<User | undefined> {
-        return this.users.find(user => username === username)
+        return this.userModel.findOne({
+            where: {
+                username: username
+            }
+        })
     }
 
     async singIn(username: string, pass: string): Promise<any> {

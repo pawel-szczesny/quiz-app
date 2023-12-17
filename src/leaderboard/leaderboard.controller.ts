@@ -1,9 +1,9 @@
-import {Controller, Get} from '@nestjs/common';
+import {Controller, Get, Request, Req} from '@nestjs/common';
 
 @Controller('leaderboard')
 export class LeaderboardController {
     @Get()
-    getLeaderboard(): string {
-        return "OK"
+    getLeaderboard(@Req() request: Request): string {
+        return request["user"]["username"]
     }
 }

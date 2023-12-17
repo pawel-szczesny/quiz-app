@@ -3,6 +3,7 @@ import {RegisterUserDto} from "./register-user.dto";
 import {LoginUserDto} from "./login-user.dto";
 import {UsersService} from "./users.service";
 import {Public} from "./constants";
+import {User} from "./models/user.model";
 
 @Controller('users')
 export class UsersController {
@@ -11,8 +12,8 @@ export class UsersController {
 
     @Public()
     @Post('register')
-    register(@Body() registerDto: RegisterUserDto): string {
-        return "OK"
+    register(@Body() registerDto: RegisterUserDto): Promise<User|undefined> {
+        return this.usersService.create(registerDto)
     }
 
     @Public()

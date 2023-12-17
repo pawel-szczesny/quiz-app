@@ -1,0 +1,57 @@
+### Register
+POST {{quiz_app_url}}/users/register
+Content-Type: application/json
+
+{
+  "username": "pawel",
+  "password": "password",
+  "email": "pawel@mail.com"
+}
+
+### Login
+POST {{quiz_app_url}}/users/login
+Content-Type: application/json
+
+{
+  "username": "pawel",
+  "password": "password"
+}
+
+
+### Create quiz
+POST {{quiz_app_url}}/quizzes
+Authorization: Bearer {{auth_token}}
+
+{
+  "title": "quiz_1",
+  "questions": {}
+}
+
+### Get quizzes
+GET {{quiz_app_url}}/quizzes
+Authorization: Bearer {{auth_token}}
+
+
+### Get quiz by id
+GET {{quiz_app_url}}/quizzes/1
+Authorization: Bearer {{auth_token}}
+
+### Join quiz
+POST {{quiz_app_url}}/quizzes/1/participate
+Authorization: Bearer {{auth_token}}
+
+### Answer quiz
+POST {{quiz_app_url}}/quizzes/1/answer
+Authorization: Bearer {{auth_token}}
+
+{
+   "answers": {}
+}
+
+### Get score of the quiz
+POST {{quiz_app_url}}/quizzes/1/score
+Authorization: Bearer {{auth_token}}
+
+### Get Leaderboard
+GET {{quiz_app_url}}/leaderboard
+Authorization: Bearer {{auth_token}}

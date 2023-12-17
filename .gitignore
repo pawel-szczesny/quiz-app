@@ -131,3 +131,6 @@ dist
 
 # InteliJ
 .idea
+
+# private api.http
+http-client.private.env.json

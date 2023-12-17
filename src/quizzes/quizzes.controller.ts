@@ -24,7 +24,7 @@ export class QuizzesController {
     }
 
     @Post(':id/answer')
-    submitAnswer(@Param('id') id: string, selectedOptions: Array<string>): string {
+    submitAnswer(@Param('id') id: string, @Body() selectedOptions: Array<string>): string {
         return "OK"
     }
 

@@ -60,4 +60,8 @@ export class QuizzesService {
         const updatedScore = participant.score ? participant.score + 1 : 1
         await this.participantModel.update({score: updatedScore}, {where: {userId: participant.userId}})
     }
+
+    async getParticipantsScore(quizId: number) {
+        return this.participantModel.findAll({where: {quizId: quizId}})
+    }
 }

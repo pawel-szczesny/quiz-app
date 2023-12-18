@@ -4,6 +4,7 @@ import {QuizzesService} from "./quizzes.service";
 import {Quiz} from "./models/quiz.model";
 import {GetQuizzesDto} from "./dto/get-quizzes.dto";
 import {UsersService} from "../users/users.service";
+import {Participant} from "./models/participant.model";
 
 @Controller('quizzes')
 export class QuizzesController {
@@ -56,8 +57,8 @@ export class QuizzesController {
     }
 
     @Post(':id/score')
-    getScore(@Param('id') id: string): string {
-        return "OK"
+    getScore(@Param('id') quizId: number): Promise<Participant[]> {
+        return this.quizzesService.getParticipantsScore(quizId)
     }
 
 }

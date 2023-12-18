@@ -3,8 +3,8 @@ POST {{quiz_app_url}}/users/register
 Content-Type: application/json
 
 {
-  "username": "pawel",
-  "password": "password",
+  "username": "pawel2",
+  "password": "password2",
   "email": "pawel@mail.com"
 }
 
@@ -13,8 +13,8 @@ POST {{quiz_app_url}}/users/login
 Content-Type: application/json
 
 {
-  "username": "pawel",
-  "password": "password"
+  "username": "pawel2",
+  "password": "password2"
 }
 
 
@@ -77,7 +77,7 @@ POST {{quiz_app_url}}/quizzes/1/participate
 Authorization: Bearer {{auth_token}}
 
 ### Answer quiz
-POST {{quiz_app_url}}/quizzes/2/answer/3
+POST {{quiz_app_url}}/quizzes/1/answer/3
 Authorization: Bearer {{auth_token}}
 
 ### Get score of the quiz

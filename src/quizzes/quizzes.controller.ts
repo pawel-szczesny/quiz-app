@@ -1,5 +1,5 @@
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
-import {CreateQuizDto} from "./create-quiz.dto";
+import {CreateQuizDto} from "./dto/create-quiz.dto";
 
 @Controller('quizzes')
 export class QuizzesController {

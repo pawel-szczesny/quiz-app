@@ -6,6 +6,7 @@ import {QuizzesController} from './quizzes/quizzes.controller';
 import {LeaderboardController} from './leaderboard/leaderboard.controller';
 import {UsersModule} from './users/users.module';
 import {SequelizeModule} from "@nestjs/sequelize";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -19,7 +20,8 @@ import {SequelizeModule} from "@nestjs/sequelize";
             database: 'quiz-app-db',
             autoLoadModels: true,
             synchronize: true
-        })
+        }),
+        AuthModule
     ],
     controllers: [AppController, UsersController, QuizzesController, LeaderboardController],
     providers: [AppService],

@@ -21,10 +21,46 @@ Content-Type: application/json
 ### Create quiz
 POST {{quiz_app_url}}/quizzes
 Authorization: Bearer {{auth_token}}
+Content-Type: application/json
 
 {
-  "title": "quiz_1",
-  "questions": {}
+  "title": "basic maths",
+  "questions": [
+    {
+      "question": "2+2",
+      "answers": [
+        {
+          "answer": "1",
+          "isCorrect": false
+        },
+        {
+          "answer": "2",
+          "isCorrect": false
+        },
+        {
+          "answer": "4",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "question": "2+3",
+      "answers": [
+        {
+          "answer": "1",
+          "isCorrect": false
+        },
+        {
+          "answer": "2",
+          "isCorrect": false
+        },
+        {
+          "answer": "5",
+          "isCorrect": true
+        }
+      ]
+    }
+  ]
 }
 
 ### Get quizzes

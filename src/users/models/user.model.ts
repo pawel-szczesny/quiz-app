@@ -3,7 +3,6 @@ import {AutoIncrement, Column, Model, PrimaryKey, Table, Unique} from "sequelize
 
 @Table
 export class User extends Model {
-
     @AutoIncrement
     @PrimaryKey
     @Column

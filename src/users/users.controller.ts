@@ -12,7 +12,7 @@ export class UsersController {
 
     @Public()
     @Post('register')
-    register(@Body() registerDto: RegisterUserDto): Promise<User|undefined> {
+    register(@Body() registerDto: RegisterUserDto): Promise<User> {
         return this.usersService.create(registerDto)
     }
 

@@ -1,4 +1,10 @@
+import {Question} from "../models/question.model";
+
 export class CreateQuizDto {
     title: string;
-    questions: Map<string, Array<string>>;
+    questions: Question[];
 }
+
+
+
+

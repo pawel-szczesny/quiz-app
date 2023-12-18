@@ -1,11 +1,15 @@
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import {CreateQuizDto} from "./dto/create-quiz.dto";
+import {QuizzesService} from "./quizzes.service";
+import {Quiz} from "./models/quiz.model";
 
 @Controller('quizzes')
 export class QuizzesController {
+    constructor(private quizzesService: QuizzesService) {
+    }
     @Post()
-    createQuiz(@Body() createQuizDto: CreateQuizDto): string {
-        return "OK"
+    createQuiz(@Body() createQuizDto: CreateQuizDto): Promise<Quiz> {
+        return this.quizzesService.create(createQuizDto)
     }
 
     @Get()

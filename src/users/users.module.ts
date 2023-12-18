@@ -5,10 +5,11 @@ import {AuthGuard} from "../auth/authguard";
 import {SequelizeModule} from "@nestjs/sequelize";
 import {User} from "./models/user.model";
 import {AuthModule} from "../auth/auth.module";
+import {AnsweredQuestion} from "./models/answered.model";
 
 @Module({
     imports: [
-        SequelizeModule.forFeature([User]),
+        SequelizeModule.forFeature([User, AnsweredQuestion]),
         AuthModule
     ],
     providers: [

@@ -1,4 +1,5 @@
-import {AutoIncrement, Column, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
+import {AutoIncrement, Column, HasMany, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
+import {AnsweredQuestion} from "./answered.model";
 
 
 @Table
@@ -18,8 +19,8 @@ export class User extends Model {
     @Column
     email: string;
 
-    // @Column
-    // answeredQuestions: number[];
+    @HasMany(() => AnsweredQuestion, 'userId')
+    answeredQuestions: AnsweredQuestion[];
 
     @Column
     totalScore: number;

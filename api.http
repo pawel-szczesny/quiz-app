@@ -77,12 +77,8 @@ POST {{quiz_app_url}}/quizzes/1/participate
 Authorization: Bearer {{auth_token}}
 
 ### Answer quiz
-POST {{quiz_app_url}}/quizzes/1/answer
+POST {{quiz_app_url}}/quizzes/2/answer/3
 Authorization: Bearer {{auth_token}}
-
-{
-   "answers": {}
-}
 
 ### Get score of the quiz
 POST {{quiz_app_url}}/quizzes/1/score

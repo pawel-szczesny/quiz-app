@@ -1,4 +1,4 @@
-import {ConflictException, Injectable} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {CreateQuizDto} from "./dto/create-quiz.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {Quiz} from "./models/quiz.model";
@@ -9,7 +9,8 @@ import {Participant} from "./models/participant.model";
 @Injectable()
 export class QuizzesService {
     constructor(@InjectModel(Quiz) private readonly quizModel: typeof Quiz,
-                @InjectModel(Participant) private readonly participantModel: typeof Participant) {
+                @InjectModel(Participant) private readonly participantModel: typeof Participant,
+                @InjectModel(Question) private readonly questionModel: typeof Question) {
     }
 
     create(createQuizDto: CreateQuizDto) {
@@ -39,5 +40,24 @@ export class QuizzesService {
             throw new ConflictException("user has already joined this quiz");
         }
         return this.findOne(quizId)
+    }
+
+    async checkAnswer(questionId: number, answerId: number) {
+        const question = await this.questionModel.findOne({where: {questionId: questionId}, include: [{model: Answer}]})
+        const correctAnswerId = question.answers.find(a => a.isCorrect).answerId //TODO multiple correct answer
+        return answerId == correctAnswerId
+    }
+
+    async checkIfUserParticipate(userId: number) {
+        const participant = await this.participantModel.findOne({where: {userId: userId}})
+        if (!participant) {
+            throw new NotFoundException("user needs to participate to the quiz before answering the question")
+        }
+        return participant
+    }
+
+    async updateScore(participant: Participant) {
+        const updatedScore = participant.score ? participant.score + 1 : 1
+        await this.participantModel.update({score: updatedScore}, {where: {userId: participant.userId}})
     }
 }

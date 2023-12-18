@@ -1,30 +1,36 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Req, Request} from '@nestjs/common';
 import {CreateQuizDto} from "./dto/create-quiz.dto";
 import {QuizzesService} from "./quizzes.service";
 import {Quiz} from "./models/quiz.model";
+import {GetQuizzesDto} from "./dto/get-quizzes.dto";
+import {Question} from "./models/question.model";
+import {UsersService} from "../users/users.service";
 
 @Controller('quizzes')
 export class QuizzesController {
-    constructor(private quizzesService: QuizzesService) {
+    constructor(private quizzesService: QuizzesService, private usersService: UsersService) {
     }
+
     @Post()
     createQuiz(@Body() createQuizDto: CreateQuizDto): Promise<Quiz> {
         return this.quizzesService.create(createQuizDto)
     }
 
     @Get()
-    getQuizzes(): string {
-        return "OK"
+    async getQuizzes(): Promise<GetQuizzesDto> {
+        const quizzes = await this.quizzesService.findAll()
+        return {quizzes: quizzes.map(data => {return {title: data.title, quizId: data.quizId}})}
     }
 
     @Get(':id')
-    getQuiz(@Param('id') id: string): string {
-        return `OK #${id}`
+    async getQuiz(@Param('id') id: number): Promise<Quiz> {
+        return this.quizzesService.findOne(id)
     }
 
     @Post(':id/participate')
-    joinQuiz(@Param('id') id: string): string {
-        return "OK"
+    async joinQuiz(@Param('id') quizId: number, @Req() request: Request): Promise<Quiz> {
+        const user = await this.usersService.findOne(request["user"]["username"])
+        return this.quizzesService.updateParticipants(quizId, user.userId)
     }
 
     @Post(':id/answer')

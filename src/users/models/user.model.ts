@@ -17,4 +17,13 @@ export class User extends Model {
 
     @Column
     email: string;
+
+    // @Column
+    // answeredQuestions: number[];
+
+    @Column
+    totalScore: number;
+
+    @Column
+    streakScore: number;
 }

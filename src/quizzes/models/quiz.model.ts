@@ -1,5 +1,6 @@
 import {AutoIncrement, Column, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {Question} from "./question.model";
+import {Participant} from "./participant.model";
 
 @Table
 export class Quiz extends Model {
@@ -13,4 +14,7 @@ export class Quiz extends Model {
 
     @HasMany(() => Question, 'quizId')
     questions: Question[];
+
+    @HasMany(() => Participant, 'quizId')
+    participants: Participant[];
 }

@@ -86,4 +86,3 @@ Authorization: Bearer {{auth_token}}
 
 ### Get Leaderboard
 GET {{quiz_app_url}}/leaderboard
-Authorization: Bearer {{auth_token}}

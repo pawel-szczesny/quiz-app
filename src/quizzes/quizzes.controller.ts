@@ -2,7 +2,6 @@ import {Body, ConflictException, Controller, Get, Param, Post, Req, Request} fro
 import {CreateQuizDto} from "./dto/create-quiz.dto";
 import {QuizzesService} from "./quizzes.service";
 import {Quiz} from "./models/quiz.model";
-import {GetQuizzesDto} from "./dto/get-quizzes.dto";
 import {UsersService} from "../users/users.service";
 import {Participant} from "./models/participant.model";
 
@@ -17,13 +16,8 @@ export class QuizzesController {
     }
 
     @Get()
-    async getQuizzes(): Promise<GetQuizzesDto> {
-        const quizzes = await this.quizzesService.findAll()
-        return {
-            quizzes: quizzes.map(data => {
-                return {title: data.title, quizId: data.quizId}
-            })
-        }
+    getQuizzes(): Promise<Quiz[]> {
+        return this.quizzesService.getQuizzes()
     }
 
     @Get(':id')

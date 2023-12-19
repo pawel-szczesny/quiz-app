@@ -20,8 +20,8 @@ export class QuizzesService {
         }, {include: [{model: Question, include: [Answer]}]})
     }
 
-    findAll() {
-        return this.quizModel.findAll()
+    getQuizzes() {
+        return this.quizModel.findAll({attributes: ['title', 'quizId']})
     }
 
     findOne(id: number) {

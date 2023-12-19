@@ -4,7 +4,6 @@ import {InjectModel} from "@nestjs/sequelize";
 import {RegisterUserDto} from "./dto/register-user.dto";
 import {AuthService} from "../auth/auth.service";
 import {AnsweredQuestion} from "./models/answered.model";
-import {Answer} from "../quizzes/models/answer.model";
 
 const MAXIMUM_STREAK_SCORE = 3
 
@@ -56,5 +55,9 @@ export class UsersService {
 
     async markAsAnswered(user: User, questionId: number) {
         await this.answeredQuestionModel.create({userId: user.userId, questionId: questionId})
+    }
+
+    async getLeaderboard() {
+        return this.userModel.findAll({order: [['totalScore', 'DESC']], attributes: ['username', 'totalScore']})
     }
 }

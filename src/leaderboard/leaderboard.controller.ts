@@ -1,9 +1,16 @@
-import {Controller, Get, Request, Req} from '@nestjs/common';
+import {Controller, Get} from '@nestjs/common';
+import {UsersService} from "../users/users.service";
+import {Public} from "../auth/constants";
+import {User} from "../users/models/user.model";
 
 @Controller('leaderboard')
 export class LeaderboardController {
+    constructor(private usersService: UsersService) {
+    }
+
+    @Public()
     @Get()
-    getLeaderboard(@Req() request: Request): string {
-        return request["user"]["username"]
+    getLeaderboard(): Promise<User[]> {
+        return this.usersService.getLeaderboard()
     }
 }

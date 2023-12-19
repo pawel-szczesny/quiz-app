@@ -34,9 +34,9 @@ export class QuizzesController {
     @Post(':id/answer/:answerId')
     async submitAnswer(@Param('id') questionId: number, @Param('answerId') answerId: number, @Req() request: Request): Promise<string> {
         const user = await this.usersService.findOne(request["user"]["username"])
+        const participant = await this.quizzesService.checkIfUserParticipate(user.userId, questionId)
         if (user.answeredQuestions && user.answeredQuestions.find(a => a.questionId == questionId))
             throw new ConflictException("user already answered this question")
-        const participant = await this.quizzesService.checkIfUserParticipate(user.userId)
         if (await this.quizzesService.checkAnswer(questionId, answerId)) {
             await this.usersService.updateScore(user)
             await this.quizzesService.updateScore(participant)

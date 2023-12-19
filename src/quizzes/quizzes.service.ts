@@ -48,8 +48,12 @@ export class QuizzesService {
         return answerId == correctAnswerId
     }
 
-    async checkIfUserParticipate(userId: number) {
-        const participant = await this.participantModel.findOne({where: {userId: userId}})
+    async checkIfUserParticipate(userId: number, questionId: number) {
+        const question = await this.questionModel.findOne({where: {questionId: questionId}})
+        if(!question) {
+            throw new NotFoundException("selected question does not exists")
+        }
+        const participant = await this.participantModel.findOne({where: {userId: userId, quizId: question.quizId}})
         if (!participant) {
             throw new NotFoundException("user needs to participate to the quiz before answering the question")
         }

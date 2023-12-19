@@ -1,4 +1,5 @@
 ## Installation
+Tested with Node version v20.10.0
 
 ```bash
 $ npm install

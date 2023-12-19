@@ -1,6 +1,5 @@
 import {AutoIncrement, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {Question} from "./question.model";
-import {Quiz} from "./quiz.model";
 
 @Table
 export class Answer extends Model {
